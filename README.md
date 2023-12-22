@@ -7,8 +7,8 @@ Instrucciones para despliegue de proyecto con docker, usando el programa docker-
 ```bash
 cd docker/v2023/
 docker login -u USUARIO --password CONTRASEÑA
-docker build --no-cache -t USUARIO/circinus:v2023 .
-docker push USUARIO/circinus:v2023
+docker build --no-cache -t USUARIO/PROYECTO:TAG .
+docker push USUARIO/PROYECTO:TAG
 ```
 
 * Nota: las imágenes principales ya están compiladas y publicadas.
