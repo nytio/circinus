@@ -45,3 +45,15 @@ docker-compose up -d --build
 ```
 
 > Realiza respaldo de base de datos y modifica yml para apuntar a la nueva versión.
+
+## Otros comandos
+Revisa puertos abiertos:
+```bash
+sudo lsof -i -P -n | grep LISTEN
+```
+
+Administrar redes:
+```bash
+docker network ls
+docker network inspect c069e1ffa187
+```
