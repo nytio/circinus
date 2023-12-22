@@ -1,0 +1,51 @@
+##################
+# Circinus
+# Servicios de Postgres y Shiny en conjunto para laboratorio de datos
+##################
+
+version: '3.8'
+services:
+  db:
+    image: postgres:16-alpine
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    ports:
+      - '5432:5432'
+    volumes:
+      - db:/var/lib/postgresql/data
+      - ./backup:/backup
+      - ./backup/init.sh:/docker-entrypoint-initdb.d/init.sh
+  shiny:
+    image: nytio/circinus:v2023
+    restart: "no"
+    ports:
+      - '80:3838'
+    volumes:
+      - ./app/shiny:/srv/shiny-server/
+      - ./log:/var/log/shiny-server/
+      - ./backup/odbc.ini:/etc/odbc.ini
+    depends_on:
+      - db
+  rstudio:
+    image: nytio/circinus:m2023-dev
+    restart: "no"
+    environment:
+      - PASSWORD=${RSTUDIO_PASSWORD}
+    ports:
+      - '127.0.0.1:8080:8787'
+      - '[::1]:8080:8787'
+    volumes:
+      - ./app/shiny:/home/rstudio/dev
+      - ./backup/odbc.ini:/etc/odbc.ini
+      - /home/mario/R:/home/rstudio/R
+      - /home/mario/.config/rstudio:/home/rstudio/.config/rstudio
+      - ./.github/id_rsa:/home/rstudio/.ssh/id_rsa:ro
+      - ./.github/.gitconfig:/home/rstudio/.gitconfig
+      - ./.github/.git-credentials:/home/rstudio/.git-credentials
+      - /home/mario/Documentos:/home/mario/Documentos
+    depends_on:
+      - db
+volumes:
+  db:
+    driver: local

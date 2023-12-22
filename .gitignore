@@ -1,0 +1,6 @@
+app/
+backup/
+.github/
+log/
+.env
+*~
