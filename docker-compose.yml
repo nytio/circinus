@@ -40,9 +40,9 @@ services:
       - ./backup/odbc.ini:/etc/odbc.ini
       - /home/mario/R:/home/rstudio/R
       - /home/mario/.config/rstudio:/home/rstudio/.config/rstudio
-      - ./.github/id_rsa:/home/rstudio/.ssh/id_rsa:ro
-      - ./.github/.gitconfig:/home/rstudio/.gitconfig
-      - ./.github/.git-credentials:/home/rstudio/.git-credentials
+      - ./.secrets/id_rsa:/home/rstudio/.ssh/id_rsa:ro
+      - ./.secrets/.gitconfig:/home/rstudio/.gitconfig
+      - ./.secrets/.git-credentials:/home/rstudio/.git-credentials
       - /home/mario/Documentos:/home/mario/Documentos
     depends_on:
       - db
