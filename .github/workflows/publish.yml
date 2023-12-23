@@ -9,16 +9,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkouts@v2
+        uses: actions/checkout@v2
       - name: Login
-        uses: docker/ligin-action@v1
+        uses: docker/login-action@v1
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.TOKEN_CIRCINUS }}
       - name: Build
-        run:
-          cd docker/v2023/
-          docker build --no-cache -t ghcr.io/docker/circinus:v2023 .
-          docker push ghcr.io/docker/circinus:v2023
-          EOF
+        run: docker build --no-cache -t ghcr.io/docker/circinus:v2023 -f docker/v2023/Dockerfile .
+      - name: Push
+        run: docker push ghcr.io/docker/circinus:v2023
