@@ -1,11 +1,15 @@
 name: publish
+
 on:
   push:
     branches: ["main"]
     paths:
       - 'docker/v2023/Dockerfile'
+      - 'docker/m2023-dev/Dockerfile'
+
 jobs:
-  create-docker-image:
+  create-docker-image-v2023:
+    if: contains(github.event.push.commits[*].added, 'docker/v2023/Dockerfile') || contains(github.event.push.commits[*].modified, 'docker/v2023/Dockerfile')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -16,7 +20,25 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.TOKEN_CIRCINUS }}
-      - name: Build
-        run: docker build --no-cache -t ghcr.io/docker/circinus:v2023 -f docker/v2023/Dockerfile .
-      - name: Push
-        run: docker push ghcr.io/docker/circinus:v2023
+      - name: Build v2023
+        run: docker build --no-cache -t ghcr.io/nytio/docker:v2023 -f docker/v2023/Dockerfile .
+      - name: Push v2023
+        run: docker push ghcr.io/nytio/docker:v2023
+
+  create-docker-image-m2023-dev:
+    if: contains(github.event.push.commits[*].added, 'docker/m2023-dev/Dockerfile') || contains(github.event.push.commits[*].modified, 'docker/m2023-dev/Dockerfile')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Login
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.TOKEN_CIRCINUS }}
+      - name: Build m2023-dev
+        run: docker build --no-cache -t ghcr.io/nytio/docker:m2023-dev -f docker/m2023-dev/Dockerfile .
+      - name: Push m2023-dev
+        run: docker push ghcr.io/nytio/docker:m2023-dev
+
