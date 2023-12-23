@@ -19,6 +19,6 @@ jobs:
       - name: Build
         run:
           cd docker/v2023/
-          docker build --no-cache -t ghcr.io/nytio/circinus:v2023 .
-          docker push ghcr.io/nytio/circinus:v2023
+          docker build --no-cache -t ghcr.io/docker/circinus:v2023 .
+          docker push ghcr.io/docker/circinus:v2023
           EOF
