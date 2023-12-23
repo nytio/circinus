@@ -1,9 +1,9 @@
 name: publish
 on:
   push:
-    branches: ["master"]
-  pull_request:
-    branches: ["master"]
+    branches: ["main"]
+    paths:
+      - 'docker/v2023/Dockerfile'
 jobs:
   create-docker-image:
     runs-on: ubuntu-latest
