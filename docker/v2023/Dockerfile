@@ -68,5 +68,4 @@ RUN R -e "install.packages('shinythemes', repos='https://cran.rstudio.com/')"
 
 RUN usermod -u 1000 shiny && groupmod -g 1000 shiny
 RUN chown 1000:1000 /srv/shiny-server/
-#USER shiny
 EXPOSE 3838
