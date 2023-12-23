@@ -1,0 +1,24 @@
+name: publish
+on:
+  push:
+    branches: ["master"]
+  pull_request:
+    branches: ["master"]
+jobs:
+  create-docker-image:
+    runs-on: ubuntu-latest
+    steeps:
+      - name: Checkout
+        uses: actions/checkouts@v2
+      - name: Login
+        uses: docker/ligin-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.TOKEN_CIRCINUS }}
+      - name: Build
+        run:
+          cd docker/v2023/
+          docker build --no-cache -t ghcr.io/nytio/circinus:v2023 .
+          docker push ghcr.io/nytio/circinus:v2023
+          EOF
