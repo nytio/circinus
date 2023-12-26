@@ -1,14 +1,13 @@
-
 # Despliege de proyecto con Docker
 
-Instrucciones para despliegue de proyecto con docker, usando el programa docker-hub.
+Instrucciones para despliegue de proyecto con docker, usando el programa docker-hub para almacenar las imágenes compiladas.
 
 ## Genera imagen principal
 ```bash
 cd docker/v2023/
 docker login -u USUARIO --password CONTRASEÑA
-docker build --no-cache -t USUARIO/PROYECTO:TAG .
-docker push USUARIO/PROYECTO:TAG
+docker build --no-cache -t USUARIO/circinus:v2023 .
+docker push USUARIO/circinus:v2023
 ```
 
 * Nota: las imágenes principales ya están compiladas y publicadas.
@@ -24,13 +23,12 @@ docker builder prune
 
 ## Levanta los servicios
 ```bash
-docker compose up -d --build
+docker compose up -d
 ```
 
 ## Entra a un servicio
 ```bash
-docker ps
-docker exec -it ccaa02cfec04 bash
+docker exec -it circinus-shiny-1 bash
 ```
 
 ## Cierra los servicios
@@ -42,7 +40,7 @@ docker compose down
 ```bash
 docker compose down
 docker rmi -f $(docker images -aq)
-docker compose up -d --build
+docker compose up -d
 ```
 
 > Realiza respaldo de base de datos y modifica yml para apuntar a la nueva versión.
@@ -56,5 +54,5 @@ sudo lsof -i -P -n | grep LISTEN
 Administrar redes:
 ```bash
 docker network ls
-docker network inspect c069e1ffa187
+docker network inspect circinus_default
 ```
