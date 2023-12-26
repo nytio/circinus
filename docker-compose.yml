@@ -33,8 +33,7 @@ services:
     environment:
       - PASSWORD=${RSTUDIO_PASSWORD}
     ports:
-      - '127.0.0.1:8080:8787'
-      - '[::1]:8080:8787'
+      - '[::1]:8080:8787/tcp'
     volumes:
       - ./app/shiny:/home/rstudio/dev
       - ./backup/odbc.ini:/etc/odbc.ini

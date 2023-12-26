@@ -24,7 +24,7 @@ docker builder prune
 
 ## Levanta los servicios
 ```bash
-docker-compose up -d --build
+docker compose up -d --build
 ```
 
 ## Entra a un servicio
@@ -35,13 +35,14 @@ docker exec -it ccaa02cfec04 bash
 
 ## Cierra los servicios
 ```bash
-docker-compose down
+docker compose down
 ```
+
 ## Proceso de actualización de servicio
 ```bash
-docker-compose down
+docker compose down
 docker rmi -f $(docker images -aq)
-docker-compose up -d --build
+docker compose up -d --build
 ```
 
 > Realiza respaldo de base de datos y modifica yml para apuntar a la nueva versión.
