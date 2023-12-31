@@ -19,32 +19,24 @@ services:
   shiny:
     image: nytio/circinus:v2023
     restart: "no"
+#    environment:
+#      - LANG=es_MX.UTF-8  
+#      - LANGUAGE=es_MX:es
+#      - LC_ALL=es_MX.UTF-8
+#      - TZ=America/Mexico_City
     ports:
       - '80:3838'
     volumes:
       - ./app/shiny:/srv/shiny-server/
       - ./log:/var/log/shiny-server/
       - ./backup/odbc.ini:/etc/odbc.ini
-    depends_on:
-      - db
-  rstudio:
-    image: nytio/circinus:m2023-dev
-    restart: "no"
-    environment:
-      - PASSWORD=${RSTUDIO_PASSWORD}
-    ports:
-      - '[::1]:8080:8787/tcp'
-    volumes:
-      - ./app/shiny:/home/rstudio/dev
-      - ./backup/odbc.ini:/etc/odbc.ini
-      - /home/mario/R:/home/rstudio/R
-      - /home/mario/.config/rstudio:/home/rstudio/.config/rstudio
-      - ./.secrets/id_rsa:/home/rstudio/.ssh/id_rsa:ro
-      - ./.secrets/.gitconfig:/home/rstudio/.gitconfig
-      - ./.secrets/.git-credentials:/home/rstudio/.git-credentials
-      - /home/mario/Documentos:/home/mario/Documentos
+      - ./app/shiny-server.conf:/etc/shiny-server/shiny-server.conf
+#      - ./app/.Rprofile:/home/shiny/.Rprofile
     depends_on:
       - db
 volumes:
   db:
     driver: local
+networks:
+  red_local:
+    external: true
