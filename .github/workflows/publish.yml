@@ -3,10 +3,10 @@ on:
   push:
     branches: ["main"]
     paths:
-      - 'docker/v2023/Dockerfile'
+      - 'docker/v2024/Dockerfile'
 jobs:
-  create-docker-image-v2023:
-    if: contains(github.event.push.commits[*].added, 'docker/v2023/Dockerfile') || contains(github.event.push.commits[*].modified, 'docker/v2023/Dockerfile')
+  create-docker-image-v2024:
+    if: contains(github.event.push.commits[*].added, 'docker/v2024/Dockerfile') || contains(github.event.push.commits[*].modified, 'docker/v2024/Dockerfile')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -17,7 +17,7 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.TOKEN_CIRCINUS }}
-      - name: Build v2023
-        run: docker build --no-cache -t ghcr.io/nytio/docker:v2023 -f docker/v2023/Dockerfile .
-      - name: Push v2023
-        run: docker push ghcr.io/nytio/docker:v2023
+      - name: Build ghcr.io/nytio/docker:v2024
+        run: docker build --no-cache -t ghcr.io/nytio/docker:v2024 -f docker/v2024/Dockerfile .
+      - name: Push ghcr.io/nytio/docker:v2024
+        run: docker push ghcr.io/nytio/docker:v2024

@@ -2,4 +2,5 @@ app/
 backup/
 log/
 .env
+*.deb
 *~

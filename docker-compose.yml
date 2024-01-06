@@ -17,13 +17,8 @@ services:
       - ./backup:/backup
       - ./backup/init.sh:/docker-entrypoint-initdb.d/init.sh
   shiny:
-    image: nytio/circinus:v2023
-    restart: "no"
-#    environment:
-#      - LANG=es_MX.UTF-8  
-#      - LANGUAGE=es_MX:es
-#      - LC_ALL=es_MX.UTF-8
-#      - TZ=America/Mexico_City
+    image: nytio/circinus:v2024
+    restart: always
     ports:
       - '80:3838'
     volumes:
@@ -31,12 +26,9 @@ services:
       - ./log:/var/log/shiny-server/
       - ./backup/odbc.ini:/etc/odbc.ini
       - ./app/shiny-server.conf:/etc/shiny-server/shiny-server.conf
-#      - ./app/.Rprofile:/home/shiny/.Rprofile
+      - ./app/.Rprofile:/home/shiny/.Rprofile
     depends_on:
       - db
 volumes:
   db:
     driver: local
-networks:
-  red_local:
-    external: true
