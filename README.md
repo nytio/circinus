@@ -6,8 +6,9 @@ Instrucciones para despliegue de proyecto con docker, usando el programa docker-
 ```bash
 cd docker/v2023/
 docker login -u USUARIO --password CONTRASEÑA
-docker build --no-cache -t USUARIO/circinus:v2023 .
-docker push USUARIO/circinus:v2023
+docker rmi -f nytio/circinus:v2024
+docker build --no-cache -t nytio/circinus:v2024 .
+docker push nytio/circinus:v2024
 ```
 
 * Nota: las imágenes principales ya están compiladas y publicadas.
@@ -28,6 +29,10 @@ docker compose up -d
 
 ## Entra a un servicio
 ```bash
+docker ps
+docker exec -it xcaa02cfec04 bash
+docker exec -it -u shiny xcaa02cfec04 bash
+docker run -it --entrypoint /bin/bash nytio/circinus:v2024
 docker exec -it circinus-shiny-1 bash
 ```
 
@@ -55,4 +60,6 @@ Administrar redes:
 ```bash
 docker network ls
 docker network inspect circinus_default
+docker network create red_local
+docker network rm red_local
 ```
