@@ -1,7 +1,7 @@
 # Laboratorio de datos: servicio Shiny Server que usa Postgres
 FROM rocker/shiny:4.3.2
 
-# Actualiza el sistema   
+# Actualiza el sistema
 RUN apt-get update -qq && apt-get upgrade -y \
     && apt-get install --no-install-recommends -y software-properties-common dirmngr gnupg2 gdebi-core wget \
     && apt-get autoremove && apt-get autoclean \
