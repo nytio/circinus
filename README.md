@@ -4,7 +4,7 @@ Instrucciones para despliegue de proyecto con docker, usando el programa docker-
 
 ## Genera imagen principal
 ```bash
-cd docker/v2023/
+cd docker/v2024/
 docker login -u USUARIO --password CONTRASEÑA
 docker rmi -f nytio/circinus:v2024
 docker build --no-cache -t nytio/circinus:v2024 .
